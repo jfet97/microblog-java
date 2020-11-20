@@ -14,6 +14,8 @@ import MicroBlog.Interfaces.*;
 import MicroBlog.Utils.*;
 
 public class SocialNetwork {
+    // OVERVIEW: il tipo SocialNetwork rappresenta un semplice social network dove gli utenti possono
+    //           creare post, mettere like ai post, seguire altri utenti ed essere menzionati nei post
     // AF = <userPostFactory, users, posts>
     // IR = IR(Post) && IR(User) && IR(UserPostFactory) <-- assumo le invarianti delle implementazioni concrete di queste interfacce
     //      && users != null && posts != null
