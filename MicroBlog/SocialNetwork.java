@@ -286,7 +286,7 @@ public class SocialNetwork {
     /*
      * REQUIRES: ps != NULL && ps.containsKey(null) == false
      * THROWS: se ps == NULL || ps.containsKey(null) == true viene lanciata una NullPointerException (eccezione unchecked)
-     * EFFECTS:ritorna tutti gli utenti menzionati (taggati) nei post in ps
+     * EFFECTS: ritorna tutti gli utenti menzionati (taggati) nei post in ps
      */
     public static Set<String> getMentionedUsers(List<Post> ps) {
         if (ps == null) {
@@ -518,6 +518,7 @@ public class SocialNetwork {
         }
     }
 
+
     /*
      * REQUIRES: user1 != null && user2 != null && this.users.contains(user1) == true && this.users.contains(user2) == true
      * THROWS: se user1 == null || user2 == null
@@ -539,6 +540,7 @@ public class SocialNetwork {
             u2.addFollower(u1.getName());
         }
     }
+
 
     /*
      * REQUIRES: user != null && pId != null && this.users.contains(user) == true && this.posts.contains(pId) == true
