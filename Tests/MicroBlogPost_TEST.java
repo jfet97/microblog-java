@@ -11,17 +11,21 @@ public class MicroBlogPost_TEST {
 
         try {
 
+            // creo alcuni utenti
             User user = new MicroBlogUser("jfet");
             User user2 = new MicroBlogUser("mosfet");
             User user3 = new MicroBlogUser("bjt");
 
+            // creo un post
             Post userPost = new MicroBlogPost(user.getName(), StringMin1Max140.create("Hello World!").get());
 
+            // controllo che l'inizializzazione del post abbia avuto successo
             if (userPost.getId() == null || userPost.getTimestamp() == null || userPost.getAuthor() != user.getName()
                     || userPost.getFollowers().size() != 0 || userPost.getMentions().size() != 0) {
                 throw new Exception("Wrong post initialization");
             }
 
+            // controllo che la menzione degli utenti avvenga in modo corretto
             userPost.addMention(user2.getName());
 
             if (userPost.getMentions().size() != 1 || !userPost.getMentions().contains(user2.getName())) {
@@ -33,16 +37,19 @@ public class MicroBlogPost_TEST {
                 throw new Exception("isUserMentioned() does not work properly");
             }
 
+            // controllo che il sistema di following (like) avvenga in modo corretto
             userPost.addFollower(user3.getName());
 
             if (userPost.getFollowers().size() != 1 || !userPost.getFollowers().contains(user3.getName())) {
                 throw new Exception("getFollowers() does not work properly");
             }
 
+            // controllo del metodo equals
             if (!userPost.equals(userPost)) {
                 throw new Exception("equals() does not work properly");
             }
 
+            // controllo del metodo clone
             Post userPostCloned = userPost.clone();
 
             if (!userPost.equals(userPostCloned)) {

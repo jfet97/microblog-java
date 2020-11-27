@@ -7,14 +7,18 @@ public class RandomIdGenerator_TEST {
 
         try {
 
+            // genero un id
             String id = RandomIdGenerator.generateId();
 
+            // controllo del sistema di univocità
             if (RandomIdGenerator.isIdAvailable(id)) {
                 throw new Exception("A generated id shouldn't be available");
             }
 
+            // creo un id lungo 13 caratteri
             String id2 = RandomIdGenerator.generateId(13);
 
+            // controlla la lunghezza
             if (id2.length() != 13) {
                 throw new Exception("Wrong length");
             }

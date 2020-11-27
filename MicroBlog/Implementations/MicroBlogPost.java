@@ -157,9 +157,7 @@ public class MicroBlogPost implements Post {
      * EFFECTS: ritorna un set contenente gli id (name) dei follower del post
      */
     public HashSet<String> getFollowers() {
-        HashSet<String> clone = new HashSet<String>();
-        this.followers.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.followers);
     }
 
 
@@ -167,9 +165,7 @@ public class MicroBlogPost implements Post {
      * EFFECTS: ritorna un set contenente gli id (name) degli utenti menzionati nel post
      */
     public HashSet<String> getMentions() {
-        HashSet<String> clone = new HashSet<String>();
-        this.mentions.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.mentions);
     }
 
 

@@ -134,9 +134,7 @@ public class MicroBlogUser implements User {
      * EFFECTS: restituisce gli id (name) dei follower dell'utente this
      */
     public HashSet<String> getFollowers() {
-        HashSet<String> clone = new HashSet<String>();
-        this.followers.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.followers);
     }
 
 
@@ -144,19 +142,15 @@ public class MicroBlogUser implements User {
      * EFFECTS: restituisce gli id (name) degli utenti seguiti dall'utente this
      */
     public HashSet<String> getFollowing() {
-        HashSet<String> clone = new HashSet<String>();
-        this.following.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.following);
     }
 
 
     /*
      * EFFECTS: restituisce gli id dei post a cui l'utente this ha messo like
      */
-    public HashSet<String> getLikedPosts() {
-        HashSet<String> clone = new HashSet<String>();
-        this.likedPosts.stream().forEach(clone::add);
-        return clone;
+    public HashSet<String> getLikedPosts() {;
+        return new HashSet<String>(this.likedPosts);
     }
 
 
@@ -164,9 +158,7 @@ public class MicroBlogUser implements User {
      * EFFECTS: restituisce gli id dei post nei quali l'utente this è stato menzionato (taggato)
      */
     public HashSet<String> getMentionsInPosts() {
-        HashSet<String> clone = new HashSet<String>();
-        this.mentionsInPosts.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.mentionsInPosts);
     }
 
 
@@ -174,9 +166,7 @@ public class MicroBlogUser implements User {
      * EFFECTS: restituisce gli id dei post creati dall'utente this
      */
     public HashSet<String> getWrittenPosts() {
-        HashSet<String> clone = new HashSet<String>();
-        this.writtenPosts.stream().forEach(clone::add);
-        return clone;
+        return new HashSet<String>(this.writtenPosts);
     }
 
 

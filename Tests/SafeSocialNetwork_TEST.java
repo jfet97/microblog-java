@@ -10,17 +10,21 @@ public class SafeSocialNetwork_TEST {
 
         try {
 
+            // inizializzo il social network
             UserPostFactory upf = new MicroBlogUserPostFactory();
-
             SafeSocialNetwork ssn = new SafeSocialNetwork(upf);
 
+            // creo due utenti
             ssn.createUser("user1");
             ssn.createUser("user2");
 
+            // creo un post che verrà segnalato
             String badPost = ssn.createPost("user1", StringMin1Max140.create("bad text").get());
 
+            // faccio il report del post
             ssn.reportPost(badPost);
 
+            // controllo che il post sia stato effetivamente segnalato
             if(!ssn.isPostReported(badPost)) {
                 throw new Exception("the report functionality does not work properly");
             }

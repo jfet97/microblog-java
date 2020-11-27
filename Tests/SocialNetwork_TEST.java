@@ -17,26 +17,30 @@ import MicroBlog.Implementations.MicroBlogUserPostFactory;
 public class SocialNetwork_TEST {
     public static void main(String[] args) {
 
+        // inizializzo il social network
         UserPostFactory upf = new MicroBlogUserPostFactory();
-
         SocialNetwork sn = new SocialNetwork(upf);
 
         try {
 
+            // testo la non esistenza di post e user
             final String USER_NOT_PRESENT = "USER_NOT_PRESENT";
             final String POST_NOT_PRESENT = "POST_NOT_PRESENT";
-            StringMin1Max140 blogPost = StringMin1Max140.create("A nice microblog post.").get();
-            StringMin1Max140 blogPost2 = StringMin1Max140.create("Another nice microblog post.").get();
 
-            if (sn.getClonedPostById(POST_NOT_PRESENT).isPresent()) {
+            if (sn.postBelongsToSocial(POST_NOT_PRESENT)) {
                 throw new Exception(
-                        "A post that is not present inside the social seems to be there. The method getClonedPostById() is wrong.");
+                    "A post that is not present inside the social seems to be there. The method getClonedPostById() is wrong.");
             }
 
             if (sn.userBelongsToSocial(USER_NOT_PRESENT)) {
                 throw new Exception("A user that is not present inside the social seems to be there.");
             }
 
+            // creo due testi per due post
+            StringMin1Max140 blogPost = StringMin1Max140.create("A nice microblog post.").get();
+            StringMin1Max140 blogPost2 = StringMin1Max140.create("Another nice microblog post.").get();
+
+            // creo un nuovo utente e ne testo l'esistenza nel social
             String jfet;
             try {
                 jfet = sn.createUser("jfet");
@@ -48,6 +52,7 @@ public class SocialNetwork_TEST {
                 throw new Exception("A user that is present inside the social seems not to be there.");
             }
 
+            // creo un nuovo post e ne testo la corretta inizializzazione dentro al social
             String jfetPost;
             try {
                 jfetPost = sn.createPost(jfet, blogPost);
@@ -66,6 +71,7 @@ public class SocialNetwork_TEST {
                 throw new Exception("writtenBy() does not work properly");
             }
 
+            // creo un po' di utenti
             String user1 = sn.createUser("user1");
             String user2 = sn.createUser("user2");
             String user3 = sn.createUser("user3");
@@ -74,6 +80,7 @@ public class SocialNetwork_TEST {
             String user6 = sn.createUser("user6");
             String user7 = sn.createUser("user7");
 
+            // aggiungo le menzioni
             HashSet<String> user1Mentions = new HashSet<String>();
             user1Mentions.add(user2);
             user1Mentions.add(user3);
@@ -81,11 +88,13 @@ public class SocialNetwork_TEST {
             user6Mentions.add(user6);
             user6Mentions.add(user7);
 
+            // creo dei post
             String user1Post1 = sn.createPost(user1, blogPost, user1Mentions);
             String user4Post1 = sn.createPost(user4, blogPost);
             String user6Post1 = sn.createPost(user6, blogPost, user6Mentions);
             String user6Post2 = sn.createPost(user6, blogPost2);
 
+            // aggiungo i like
             sn.userLikeAPost(user4, user1Post1);
             sn.userLikeAPost(user5, user1Post1);
 
@@ -106,6 +115,7 @@ public class SocialNetwork_TEST {
             // map[a] definisce l’insieme delle persone seguite nella rete sociale
             // dall’utente a.
 
+            // test del metodo guessFollowers
             List<Post> postList1 = new ArrayList<Post>();
             postList1.addAll(sn.writtenBy(user1));
             postList1.addAll(sn.writtenBy(user4));
@@ -128,7 +138,6 @@ public class SocialNetwork_TEST {
             dsn1T = dsn1T && derivedSocialNetwork1.get(user6).isEmpty();
             dsn1T = dsn1T && derivedSocialNetwork1.get(user7).contains(user6);
 
-            // System.out.println(derivedSocialNetwork1);
             if (!dsn1T) {
                 throw new Exception("static guessFollowers() does not work properly - 1");
             }
@@ -149,20 +158,20 @@ public class SocialNetwork_TEST {
             dsn2T = dsn2T && !derivedSocialNetwork2.containsKey(user6);
             dsn2T = dsn2T && !derivedSocialNetwork2.containsKey(user7);
 
-            // System.out.println(derivedSocialNetwork2);
             if (!dsn2T) {
                 throw new Exception("static guessFollowers() does not work properly - 2");
             }
 
+            // test del metodo getClonedPostById
             Post user1Post1Cloned = sn.getClonedPostById(user1Post1).orElseThrow(() -> new Exception(
                     "A post that is present inside the social seems not to be there. The method getClonedPostById() is wrong."));
             if (user1Post1Cloned.getId() != user1Post1) {
                 throw new Exception("getClonedPostById() does not work properly");
             }
 
+            // test dei metodi getMentionedUsers
             boolean mF = true;
             Set<String> mentions = sn.getMentionedUsers();
-            // System.out.println(mentions);
             mF = mF && mentions.size() == 4;
             mF = mF && mentions.contains(user2);
             mF = mF && mentions.contains(user3);
@@ -175,7 +184,6 @@ public class SocialNetwork_TEST {
 
             boolean mF1 = true;
             Set<String> mentions1 = SocialNetwork.getMentionedUsers(postList1);
-            // System.out.println(mentions1);
             mF1 = mF1 && mentions1.size() == 4;
             mF1 = mF1 && mentions1.contains(user2);
             mF1 = mF1 && mentions1.contains(user3);
@@ -188,7 +196,6 @@ public class SocialNetwork_TEST {
 
             boolean mF2 = true;
             Set<String> mentions2 = SocialNetwork.getMentionedUsers(postList2);
-            // System.out.println(mentions2);
             mF2 = mF2 && mentions2.size() == 2;
             mF2 = mF2 && mentions2.contains(user2);
             mF2 = mF2 && mentions2.contains(user3);
@@ -197,9 +204,9 @@ public class SocialNetwork_TEST {
                 throw new Exception("static getMentionedUsers() does not work properly - 3");
             }
 
+            // test dei metodi influencers
             boolean iF = true;
             List<String> influencers = sn.influencers();
-            // System.out.println(influencers);
             iF = iF && influencers.size() == 2;
             iF = iF && influencers.contains(user4);
             iF = iF && influencers.contains(user6);
@@ -210,7 +217,6 @@ public class SocialNetwork_TEST {
 
             boolean iF1 = true;
             List<String> influencers1 = SocialNetwork.influencers(derivedSocialNetwork1);
-            // System.out.println(influencers1);
             iF1 = iF1 && influencers1.size() == 2;
             iF1 = iF1 && influencers1.contains(user4);
             iF1 = iF1 && influencers1.contains(user6);
@@ -221,7 +227,6 @@ public class SocialNetwork_TEST {
 
             boolean iF2 = true;
             List<String> influencers2 = SocialNetwork.influencers(derivedSocialNetwork2);
-            // System.out.println(influencers2);
             iF2 = iF2 && influencers2.size() == 2;
             iF2 = iF2 && influencers2.contains(user1);
             iF2 = iF2 && influencers2.contains(user4);
@@ -230,6 +235,7 @@ public class SocialNetwork_TEST {
                 throw new Exception("static influencers() does not work properly - 3");
             }
 
+            // test dei metodi writtenBy
             boolean wB_a = true;
             List<Post> wB1 = sn.writtenBy(user1);
             List<Post> wB2 = sn.writtenBy(user2);
@@ -303,6 +309,7 @@ public class SocialNetwork_TEST {
                 throw new Exception("static writtenBy() does not work properly - 3");
             }
 
+            // test del metodo containing
             List<String> lw1 = new ArrayList<String>();
             lw1.add("A");
             lw1.add("Another");
