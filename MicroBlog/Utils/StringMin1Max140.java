@@ -3,11 +3,13 @@ package MicroBlog.Utils;
 import java.util.Optional;
 
 public class StringMin1Max140 {
+    // OVERVIEW: il tipo StringMin1Max140 rappresenta una stringa
+    // avente lunghezza compresa tra 1 e 140 caratteri
     // AF = <str[0], ..., str[str.length - 1]>
     // IR = str != null && 0 < str.length <= 140
 
 
-    // la stringa lunga almeno un carattere e al più 140
+    // la stringa è lunga almeno un carattere e al più 140
     private String str;
 
 
