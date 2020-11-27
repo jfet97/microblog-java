@@ -154,7 +154,12 @@ ad esempio un \texttt{Set<String>} contenente gli id dei post segnalati, ed un m
 \subsection*{Compilazione}
 
 I file da compilare per utilizzare il social network sono quelli presenti nella cartella \texttt{Tests}. È consigliabile utilizzare almeno la versione 8 di Java,
-sebbene è doveroso tenere presente che sulla mia macchina è installata la versione 14.
+sebbene è doveroso tenere presente che sulla mia macchina è installata la versione 14.\\
+Per compilare ed eseguire uno qualsiasi dei file di test è sufficiente rimanere nella \textbf{root directory} e utilizzare la seguente coppia di comandi:
+\begin{lstlisting}[language=sh]
+    javac Tests/NomeClasse_TEST.java
+    java Tests/NomeClasse_TEST
+\end{lstlisting}
 
 \subsection*{Note}
 Ove possibile è stato scelto un approccio funzionale nella stesura del codice, approccio basato sull'uso di metodi dichiarativi in unione con le lambda function
