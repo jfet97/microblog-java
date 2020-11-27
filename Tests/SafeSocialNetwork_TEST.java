@@ -29,6 +29,8 @@ public class SafeSocialNetwork_TEST {
                 throw new Exception("the report functionality does not work properly");
             }
 
+            System.out.println("SafeSocialNetwork: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

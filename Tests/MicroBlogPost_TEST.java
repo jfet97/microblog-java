@@ -64,6 +64,8 @@ public class MicroBlogPost_TEST {
                 throw new Exception("clone() does not work properly");
             }
 
+            System.out.println("MicroBlogPost: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

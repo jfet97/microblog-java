@@ -23,6 +23,8 @@ public class RandomIdGenerator_TEST {
                 throw new Exception("Wrong length");
             }
 
+            System.out.println("RandomIdGenerator: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

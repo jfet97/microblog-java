@@ -21,6 +21,8 @@ public class MicroBlogUserPostFactory_TEST {
                 throw new Exception("MicroBlogUserPostFactory should generate MicroBlog instances");
             }
 
+            System.out.println("MicroBlogUserPostFactory: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

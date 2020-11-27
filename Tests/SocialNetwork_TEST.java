@@ -352,6 +352,8 @@ public class SocialNetwork_TEST {
                 throw new Exception("containing() does not work properly");
             }
 
+            System.out.println("SocialNetwork: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

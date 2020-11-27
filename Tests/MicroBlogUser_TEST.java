@@ -69,6 +69,8 @@ public class MicroBlogUser_TEST {
                 throw new Exception("addMention() does not work properly");
             }
 
+            System.out.println("MicroBlogUser: OK");
+
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
             System.out.println(e.toString());

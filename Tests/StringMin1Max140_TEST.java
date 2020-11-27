@@ -47,6 +47,8 @@ public class StringMin1Max140_TEST {
                 throw new Exception("read() does not work properly");
             }
 
+            System.out.println("StringMin1Max140: OK");
+
 
         } catch (Exception e) {
             System.out.println("Something is wrong :(");
