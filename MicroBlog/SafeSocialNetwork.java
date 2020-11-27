@@ -9,7 +9,7 @@ import MicroBlog.Interfaces.UserPostFactory;
 public class SafeSocialNetwork extends SocialNetwork {
     // OVERVIEW: il tipo SafeSocialNetwork è un sottotipo del SocialNetwork ed aggiunge
     // la possibilità di segnalare post con contenuti offensivi
-    // AF = <userPostFactory, users, posts, reportedPosts>
+    // AF = <userPostFactory, users, posts, reportedPosts> -> <userPostFactory, users, posts>
     // IR = IR(SocialNetwork) && reportedPosts != null && reportedPosts.contains(null) == false
     //      && reportedPosts.contains(id) => this.posts.contains(id)
 

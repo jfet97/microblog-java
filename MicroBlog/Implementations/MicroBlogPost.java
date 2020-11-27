@@ -8,7 +8,7 @@ import MicroBlog.Utils.StringMin1Max140;
 import MicroBlog.Utils.RandomIdGenerator;
 
 public class MicroBlogPost implements Post {
-    // AF = <id, author, text, timestamp, followers, mentions>
+    // AF = <id, author, text, timestamp, followers, mentions> -> <id, author, text, timestamp, followers, mentions>
     // IR = IR(StringMin1Max140) && id != null && author != null && text != null && timestamp != null && followers != null && mentions != null
     //      && followers.contains(null) == false && mentions.contains(null) == false
 

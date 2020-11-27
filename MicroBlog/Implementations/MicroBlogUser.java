@@ -5,7 +5,7 @@ import java.util.HashSet;
 import MicroBlog.Interfaces.User;
 
 public class MicroBlogUser implements User {
-    // AF = <name, followers, following, likedPosts, mentionsInPosts, writtenPosts>
+    // AF = <name, followers, following, likedPosts, mentionsInPosts, writtenPosts> -> <name, followers, following, likedPosts, mentionsInPosts, writtenPosts>
     // IR = name != null && followers != null && following != null && likedPosts != null && mentionsInPosts != null && writtenPosts != null
     //      && followers.contains(null) == false && following.contains(null) == false && likedPosts.contains(null) == false
     //      && mentionsInPosts.contains(null) == false && writtenPosts.contains(null) == false

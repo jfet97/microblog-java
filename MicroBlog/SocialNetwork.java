@@ -16,7 +16,7 @@ import MicroBlog.Utils.*;
 public class SocialNetwork {
     // OVERVIEW: il tipo SocialNetwork rappresenta un semplice social network dove gli utenti possono
     //           creare post, mettere like ai post, seguire altri utenti ed essere menzionati nei post
-    // AF = <userPostFactory, users, posts>
+    // AF = <userPostFactory, users, posts> -> <userPostFactory, users, posts>
     // IR = IR(Post) && IR(User) && IR(UserPostFactory) <-- assumo le invarianti delle implementazioni concrete di queste interfacce
     //      && users != null && posts != null
     //      && users.containsKey(null) == false && users.containsValue(null) == false
@@ -307,7 +307,7 @@ public class SocialNetwork {
 
     /*
      * REQUIRES: name != NULL && this.users.containsKey(name) == true
-     * THROWS: se ps == NULL viene lanciata una NullPointerException (eccezione unchecked)
+     * THROWS: se name == NULL viene lanciata una NullPointerException (eccezione unchecked)
      *         se name non è il name di un utente facente parte del social network viene lanciata
      *         una eccezione MicroBlogUserDoesNotExist exception (eccezione checked)
      * EFFECTS: ritorna la lista di post nel social network scritti dall'utente name
@@ -394,8 +394,8 @@ public class SocialNetwork {
 
 
     /*
-     * REQUIRES: words != null && words.contains(null) == false && this.users.containsKey(name) == false
-     * THROWS: se words == NULL || words.contains(null) == true
+     * REQUIRES: name != null && this.users.containsKey(name) == false
+     * THROWS: se name == NULL
      *         viene lanciata una NullPointerException (eccezione unchecked)
      *         se il name scelto è già posseduto da un altro utente della rete
      *         viene lanciata una MicroBlogUserNameUnavailable exception (eccezione checked)
@@ -437,9 +437,9 @@ public class SocialNetwork {
 
 
     /*
-     * REQUIRES: authorName != null && text != null && mentions != null && mentions.contains(null) != null && this.users.containsKey(authorName) == true
+     * REQUIRES: authorName != null && text != null && mentions != null && mentions.contains(null) == false && this.users.containsKey(authorName) == true
      *           && ∀ u ∈ mentions => this.users.containsKey(u) == true
-     * THROWS: se authorName == null || text == null || mentions == null || mentions.contains(null) == null
+     * THROWS: se authorName == null || text == null || mentions == null || mentions.contains(null) == true
      *         viene lanciata una NullPointerException (eccezione unchecked)
      *         se l'autore scelto o uno degli utenti taggati non sono presenti all'interno del social network
      *         viene lanciata una MicroBlogUserDoesNotExist exception (eccezione checked)
@@ -485,8 +485,8 @@ public class SocialNetwork {
 
 
     /*
-     * REQUIRES: us != null && p != null && us.contains(null) != null
-     * THROWS: se us == null || p == null || us.contains(null) == null
+     * REQUIRES: us != null && p != null && us.contains(null) == false
+     * THROWS: se us == null || p == null || us.contains(null) == true
      *         viene lanciata una NullPointerException (eccezione unchecked)
      * EFFECTS: aggiunge un set us di utenti negli utenti menzionati di un post p e
      *          aggiunge il post p nel set dei post nei quali ogni utente u ∈ us è menzionato
@@ -530,10 +530,12 @@ public class SocialNetwork {
      * EFFECTS: aggiunge l'utente user2 agli utenti seguiti dall'utente user1 e
      *          aggiunte l'utente user1 ai seguaci dell'utente user2
      */
-    private void userFollowAnotherUser(String user1, String user2) throws MicroBlogUserDoesNotExist {
+    private void userFollowAnotherUser(String user1, String user2) throws MicroBlogUserDoesNotExist, MicroBlogUserCannotFollowItself {
         if (user1 == null || user2 == null)
             throw new NullPointerException();
-        else {
+        else if(user1 == user2) {
+            throw new MicroBlogUserCannotFollowItself();
+        } else {
             // estraggo i due utenti dal social network
             User u1 = this.getUserByName(user1).orElseThrow(() -> new MicroBlogUserDoesNotExist(user1));
             User u2 = this.getUserByName(user2).orElseThrow(() -> new MicroBlogUserDoesNotExist(user2));
